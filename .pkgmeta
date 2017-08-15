@@ -1,0 +1,9 @@
+package-as: totalRP3_KuiNameplates
+enable-nolib-creation: no
+
+ignore:
+  - README.md
+
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
