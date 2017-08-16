@@ -25,9 +25,7 @@ function TRPKN.initPlayerNameplates()
 	local unitIDIsKnown = TRP3_API.register.isUnitIDKnown;
 	local colorHexaToFloats = TRP3_API.utils.color.hexaToFloat;
 	local getConfigValue = TRP3_API.configuration.getValue;
-	local getUnitFullName = TRP3_API.r.name;
 	local getUnitProfile = TRP3_API.register.profileExists;
-	local getCompleteName = TRP3_API.register.getCompleteName;
 	local crop = TRP3_API.utils.str.crop;
 	
 	local MAX_TITLE_SIZE = 40;
