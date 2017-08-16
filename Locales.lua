@@ -38,7 +38,8 @@ Note: If you have enabled the option ot only enable nameplate customisation when
 	KNP_INCREASE_CONTRAST = "Increase color contrast",
 	KNP_CUSTOM_TITLES = "Show custom titles",
 	KNP_CUSTOM_TITLES_TT = "Replace the guild text by the RP title of the player. Be aware that custom titles may be really long and take a lot of space.",
-	KNP_PET_NAMES = "Pet names"
+	KNP_PET_NAMES = "Pet names",
+	KNP_FIRST_NAME_ONLY = "Firstname only",
 }
 
 TRP3_KUINAMEPLATES_LOCALE["frFR"] = {
@@ -53,7 +54,8 @@ Note: Si vous avez activé l'option de modifier les barres d'infos uniquement lo
 	KNP_INCREASE_CONTRAST = "Améliorer le contraste des couleurs",
 	KNP_CUSTOM_TITLES = "Afficher les titres personnalisés",
 	KNP_CUSTOM_TITLES_TT = [[Remplace la ligne du texte de guilde par le titre RP du joueur. Attention, certains titres peuvent être très long et prendre beaucoup de place]],
-	KNP_PET_NAMES = "Nom des familiers"
+	KNP_PET_NAMES = "Nom des familiers",
+	KNP_FIRST_NAME_ONLY = "Prénom seulement",
 }
 
 function TRPKN.initLocales()

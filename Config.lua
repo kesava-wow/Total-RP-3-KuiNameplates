@@ -28,7 +28,20 @@ function TRPKN.initConfig()
 	local registerConfigKey = TRP3_API.configuration.registerConfigKey;
 	local registerHandler = TRP3_API.configuration.registerHandler;
 	
+	TRPKN.CONFIG.NAMING_METHODS = {
+		FIRST_NAME_ONLY = 1,
+		FIRST_AND_LAST_NAME = 2,
+		SHORT_TITLE_FIRST_AND_LAST_NAME = 3
+	}
+	
+	local NAMING_METHOD_TAB = {
+		{loc("KNP_FIRST_NAME_ONLY"), TRPKN.CONFIG.NAMING_METHODS.FIRST_NAME_ONLY},
+		{loc("CO_CHAT_MAIN_NAMING_3"), TRPKN.CONFIG.NAMING_METHODS.FIRST_AND_LAST_NAME},
+		{loc("CO_CHAT_MAIN_NAMING_4"), TRPKN.CONFIG.NAMING_METHODS.SHORT_TITLE_FIRST_AND_LAST_NAME},
+	}
+	
 	TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION = "kui_nameplates_enable";
+	TRPKN.CONFIG.NAMING_METHOD = "kui_nameplates_naming_method";
 	TRPKN.CONFIG.DISPLAY_NAMEPLATES_ONLY_IN_CHARACTER = "kui_nameplates_only_in_character";
 	TRPKN.CONFIG.USE_CUSTOM_COLOR = "kui_nameplates_use_custom_color";
 	TRPKN.CONFIG.INCREASE_CONTRAST = "kui_nameplates_increase_contrast";
@@ -37,6 +50,7 @@ function TRPKN.initConfig()
 	TRPKN.CONFIG.PET_NAMES = "kui_nameplates_pet_names";
 	
 	registerConfigKey(TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION, true);
+	registerConfigKey(TRPKN.CONFIG.TRPKN.CONFIG.NAMING_METHOD, TRPKN.CONFIG.NAMING_METHODS.FIRST_AND_LAST_NAME);
 	registerConfigKey(TRPKN.CONFIG.DISPLAY_NAMEPLATES_ONLY_IN_CHARACTER, true);
 	registerConfigKey(TRPKN.CONFIG.HIDE_NON_ROLEPLAY, false);
 	registerConfigKey(TRPKN.CONFIG.USE_CUSTOM_COLOR, true);
@@ -45,6 +59,7 @@ function TRPKN.initConfig()
 	registerConfigKey(TRPKN.CONFIG.SHOW_TITLES, false);
 	
 	registerHandler(TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION, TRPKN.refreshAllNameplates);
+	registerHandler(TRPKN.CONFIG.NAMING_METHOD, TRPKN.refreshAllNameplates);
 	registerHandler(TRPKN.CONFIG.DISPLAY_NAMEPLATES_ONLY_IN_CHARACTER, TRPKN.refreshAllNameplates);
 	registerHandler(TRPKN.CONFIG.HIDE_NON_ROLEPLAY, TRPKN.refreshAllNameplates);
 	registerHandler(TRPKN.CONFIG.USE_CUSTOM_COLOR, TRPKN.refreshAllNameplates);
@@ -62,6 +77,15 @@ function TRPKN.initConfig()
 				inherit = "TRP3_ConfigCheck",
 				title = loc("KNP_ENABLE_CUSTOMIZATION"),
 				configKey = TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION
+			},
+			{
+				inherit = "TRP3_ConfigDropDown",
+				widgetName = "TRP3_Configuration_KuiNameplates_NameMethod",
+				title = loc("CO_CHAT_MAIN_NAMING"),
+				listContent = NAMING_METHOD_TAB,
+				configKey = TRPKN.CONFIG.NAMING_METHOD,
+				listCancel = true,
+				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",

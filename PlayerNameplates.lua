@@ -39,9 +39,25 @@ function TRPKN.initPlayerNameplates()
 		
 		-- If we have more information (sometimes we don't have them yet) we continue
 		if profile and profile.characteristics then
-			name = getCompleteName(profile.characteristics, getUnitFullName(playerUnitID), false);
-			title = profile.characteristics.FT;
-			color = profile.characteristics.CH;
+			
+			-- Get name using naming method
+			local characteristics = profile.characteristics;
+			
+			local nameMethod = getConfigValue(TRPKN.CONFIG.NAMING_METHOD);
+			if characteristics.FN then
+				name = characteristics.FN;
+				
+				if nameMethod == 3 and characteristics.TI then -- With short title in front of the name
+					name = characteristics.TI .. " " .. name;
+				end
+				
+				if (nameMethod == 2 or nameMethod == 3) and characteristics.LN then -- With last name
+					name = name .. " " .. characteristics.LN;
+				end
+			end
+			
+			title = characteristics.FT;
+			color = characteristics.CH;
 		end
 		
 		return name, title, color;
