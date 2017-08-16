@@ -21,7 +21,7 @@ local TRPKN = select(2, ...);
 
 function TRPKN.initCompanionNameplates()
 	
-	local colorHexaToFloats = TRP3_API.utils.color.hexaToFloat;
+	local getColorFromHexadecimalCode = TRP3_API.utils.color.getColorFromHexadecimalCode;
 	local getConfigValue = TRP3_API.configuration.getValue;
 	local getCompanionFullID = TRP3_API.ui.misc.getCompanionFullID;
 	local getCompanionProfile = TRP3_API.companions.register.getCompanionProfile;
@@ -76,8 +76,12 @@ function TRPKN.initCompanionNameplates()
 				end
 				
 				if color and getConfigValue(TRPKN.CONFIG.USE_CUSTOM_COLOR) then
-					local r, g, b = colorHexaToFloats(color);
-					nameplate.NameText:SetTextColor(r, g, b);
+					---@type ColorMixin
+					color = getColorFromHexadecimalCode(color);
+					if getConfigValue(TRPKN.CONFIG.INCREASE_CONTRAST) then
+						color:LightenColorUntilItIsReadable();
+					end
+					nameplate.NameText:SetTextColor(color:GetRGB());
 				end
 			end
 		end

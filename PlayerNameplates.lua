@@ -23,7 +23,7 @@ function TRPKN.initPlayerNameplates()
 	
 	local getUnitID = TRP3_API.utils.str.getUnitID;
 	local unitIDIsKnown = TRP3_API.register.isUnitIDKnown;
-	local colorHexaToFloats = TRP3_API.utils.color.hexaToFloat;
+	local getColorFromHexadecimalCode = TRP3_API.utils.color.getColorFromHexadecimalCode;
 	local getConfigValue = TRP3_API.configuration.getValue;
 	local getUnitFullName = TRP3_API.r.name;
 	local getUnitProfile = TRP3_API.register.profileExists;
@@ -79,8 +79,12 @@ function TRPKN.initPlayerNameplates()
 		end
 		
 		if color and getConfigValue(TRPKN.CONFIG.USE_CUSTOM_COLOR) then
-			local r, g, b = colorHexaToFloats(color);
-			nameplate.NameText:SetTextColor(r, g, b)
+			---@type ColorMixin
+			color = getColorFromHexadecimalCode(color);
+			if getConfigValue(TRPKN.CONFIG.INCREASE_CONTRAST) then
+				color:LightenColorUntilItIsReadable();
+			end
+			nameplate.NameText:SetTextColor(color:GetRGB())
 		end
 	end
 end

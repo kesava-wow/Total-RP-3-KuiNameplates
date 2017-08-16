@@ -88,13 +88,12 @@ function TRPKN.initConfig()
 				configKey = TRPKN.CONFIG.USE_CUSTOM_COLOR,
 				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION },
 			},
-			-- We'll do that later.
-			--{
-			--	inherit = "TRP3_ConfigCheck",
-			--	title = loc("KNP_INCREASE_CONTRAST"),
-			--	configKey = TRPKN.CONFIG.INCREASE_CONTRAST,
-			--	dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION, TRPKN.CONFIG.USE_CUSTOM_COLOR },
-			--},
+			{
+				inherit = "TRP3_ConfigCheck",
+				title = loc("KNP_INCREASE_CONTRAST"),
+				configKey = TRPKN.CONFIG.INCREASE_CONTRAST,
+				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION, TRPKN.CONFIG.USE_CUSTOM_COLOR },
+			},
 			{
 				inherit = "TRP3_ConfigCheck",
 				title = loc("KNP_CUSTOM_TITLES"),
