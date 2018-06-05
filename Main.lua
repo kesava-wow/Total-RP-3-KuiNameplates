@@ -58,8 +58,8 @@ local function onModuleStart()
 	--
 	function mod:UpdateRPName(nameplate)
 		
-		-- If we don't have a unit, we can stop here
-		if not nameplate.unit then
+		-- If we don't have a unit or this is the personal nameplate, we can stop here
+		if not nameplate.unit or nameplate.state.player then
 			return
 		end;
 		
