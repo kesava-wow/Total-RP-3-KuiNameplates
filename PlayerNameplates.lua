@@ -23,41 +23,74 @@ function TRPKN.initPlayerNameplates()
 	
 	local getUnitID = TRP3_API.utils.str.getUnitID;
 	local unitIDIsKnown = TRP3_API.register.isUnitIDKnown;
+	local hasProfile = TRP3_API.register.hasProfile;
 	local colorHexaToFloats = TRP3_API.utils.color.hexaToFloat;
 	local getConfigValue = TRP3_API.configuration.getValue;
 	local getUnitFullName = TRP3_API.r.name;
 	local getUnitProfile = TRP3_API.register.profileExists;
 	local getCompleteName = TRP3_API.register.getCompleteName;
 	local crop = TRP3_API.utils.str.crop;
-	
+	local loc = TRP3_API.loc;
+	local OOC_ICON = "|TInterface\\COMMON\\Indicator-Red:15:15|t";
+
+	local profilesRequestByUnitForThisSession = {}
+
+	local CONFIG_PREFER_OOC_ICON = "tooltip_prefere_ooc_icon";
+
 	local MAX_TITLE_SIZE = 40;
 	
 	local function getPlayerData(playerUnitID)
+		if not unitIDIsKnown(playerUnitID) then return end
 		local profile = getUnitProfile(playerUnitID);
 		
-		local name, title, color;
+		local name, title, color, OOC;
 		
 		-- If we have more information (sometimes we don't have them yet) we continue
 		if profile and profile.characteristics then
 			name = getCompleteName(profile.characteristics, getUnitFullName(playerUnitID), false);
 			title = profile.characteristics.FT;
 			color = profile.characteristics.CH;
+			if profile.character then
+				OOC = profile.character.RP ~= 1 ;
+			end
 		end
 		
-		return name, title, color;
+		return name, title, color, OOC;
 	end
 	
 	function TRPKN.modifyPlayerNameplate(nameplate)
 		local unitID = getUnitID(nameplate.unit);
 		
 		-- If we didn't get a proper unit ID or we don't have any data for this unit ID we can stop here
-		if not unitID or not unitIDIsKnown(unitID) then
+		if not unitID then
 			return
 		end;
+
+		if not unitIDIsKnown(unitID) or not hasProfile(unitID) then
+			-- We don't know this unit we will try to ask for their profile
+			if getConfigValue(TRPKN.CONFIG.ACTIVE_QUERY) and not profilesRequestByUnitForThisSession[unitID] then
+				TRP3_API.r.sendQuery(unitID);
+				profilesRequestByUnitForThisSession[unitID] = true
+			end
+
+			if getConfigValue(TRPKN.CONFIG.HIDE_NON_ROLEPLAY) then
+				TRPKN.HideKuiNameplate(nameplate);
+			end
+			return false;
+		end
 		
-		local name, title, color = getPlayerData(unitID);
+		local name, title, color, OOC = getPlayerData(unitID);
 		
 		if name then
+			if getConfigValue(TRPKN.CONFIG.SHOW_OOC_INDICATOR) and OOC then
+				name = " " .. name
+				if getConfigValue(CONFIG_PREFER_OOC_ICON) == "TEXT" then
+					name = strconcat(TRP3_API.Ellyb.ColorManager.RED("[" .. loc.CM_OOC .. "] "), name);
+				else
+					name = strconcat(OOC_ICON, name);
+				end
+			end
+
 			nameplate.state.name = name;
 			nameplate.NameText:SetText(nameplate.state.name);
 		end
@@ -83,4 +116,8 @@ function TRPKN.initPlayerNameplates()
 			nameplate.NameText:SetTextColor(r, g, b)
 		end
 	end
+
+	TRP3_API.events.listenToEvent(TRP3_API.events.WORKFLOW_ON_LOADED, function()
+		TRP3_API.configuration.registerHandler(CONFIG_PREFER_OOC_ICON, TRPKN.refreshAllNameplates);
+	end)
 end

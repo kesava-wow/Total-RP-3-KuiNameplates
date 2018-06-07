@@ -23,7 +23,7 @@ function TRPKN.initConfig()
 	
 	TRPKN.CONFIG = {};
 	
-	local loc = TRP3_API.locale.getText;
+	local loc = TRP3_API.loc;
 	local registerConfigurationPage = TRP3_API.configuration.registerConfigurationPage;
 	local registerConfigKey = TRP3_API.configuration.registerConfigKey;
 	local registerHandler = TRP3_API.configuration.registerHandler;
@@ -35,6 +35,8 @@ function TRPKN.initConfig()
 	TRPKN.CONFIG.SHOW_TITLES = "kui_nameplates_show_titles";
 	TRPKN.CONFIG.HIDE_NON_ROLEPLAY = "kui_nameplates_hide_non_roleplay";
 	TRPKN.CONFIG.PET_NAMES = "kui_nameplates_pet_names";
+	TRPKN.CONFIG.SHOW_OOC_INDICATOR = "kui_nameplates_show_ooc_indicator";
+	TRPKN.CONFIG.ACTIVE_QUERY = "kui_nameplates_active_query";
 	
 	registerConfigKey(TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION, true);
 	registerConfigKey(TRPKN.CONFIG.DISPLAY_NAMEPLATES_ONLY_IN_CHARACTER, true);
@@ -43,6 +45,8 @@ function TRPKN.initConfig()
 	registerConfigKey(TRPKN.CONFIG.INCREASE_CONTRAST, false);
 	registerConfigKey(TRPKN.CONFIG.PET_NAMES, true);
 	registerConfigKey(TRPKN.CONFIG.SHOW_TITLES, false);
+	registerConfigKey(TRPKN.CONFIG.SHOW_OOC_INDICATOR, true);
+	registerConfigKey(TRPKN.CONFIG.ACTIVE_QUERY, false);
 	
 	registerHandler(TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION, TRPKN.refreshAllNameplates);
 	registerHandler(TRPKN.CONFIG.DISPLAY_NAMEPLATES_ONLY_IN_CHARACTER, TRPKN.refreshAllNameplates);
@@ -51,55 +55,69 @@ function TRPKN.initConfig()
 	registerHandler(TRPKN.CONFIG.INCREASE_CONTRAST, TRPKN.refreshAllNameplates);
 	registerHandler(TRPKN.CONFIG.SHOW_TITLES, TRPKN.refreshAllNameplates);
 	registerHandler(TRPKN.CONFIG.PET_NAMES, TRPKN.refreshAllNameplates);
+	registerHandler(TRPKN.CONFIG.SHOW_OOC_INDICATOR, TRPKN.refreshAllNameplates);
 	
 	-- Build configuration page
 	registerConfigurationPage({
 		id = "main_config_nameplates",
 		menuText = "Kui|cff9966ffNameplates|r",
-		pageText = loc("KNP_MODULE"),
+		pageText = loc.KNP_MODULE,
 		elements = {
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = loc("KNP_ENABLE_CUSTOMIZATION"),
+				title = loc.KNP_ENABLE_CUSTOMIZATION,
 				configKey = TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = loc("KNP_PET_NAMES"),
+				title = loc.KNP_PET_NAMES,
 				configKey = TRPKN.CONFIG.PET_NAMES,
 				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = loc("KNP_ONLY_IC"),
+				title = loc.KNP_ONLY_IC,
 				configKey = TRPKN.CONFIG.DISPLAY_NAMEPLATES_ONLY_IN_CHARACTER,
 				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = loc("KNP_HIDE_NON_RP"),
+				title = loc.KNP_HIDE_NON_RP,
 				configKey = TRPKN.CONFIG.HIDE_NON_ROLEPLAY,
-				help = loc("KNP_HIDE_NON_RP_TT"),
+				help = loc.KNP_HIDE_NON_RP_TT,
 				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION },
 			},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = loc("KNP_CUSTOM_COLORS"),
+				title = loc.KNP_CUSTOM_COLORS,
 				configKey = TRPKN.CONFIG.USE_CUSTOM_COLOR,
 				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION },
 			},
 			-- We'll do that later.
 			--{
 			--	inherit = "TRP3_ConfigCheck",
-			--	title = loc("KNP_INCREASE_CONTRAST"),
+			--	title = loc.KNP_INCREASE_CONTRAST,
 			--	configKey = TRPKN.CONFIG.INCREASE_CONTRAST,
 			--	dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION, TRPKN.CONFIG.USE_CUSTOM_COLOR },
 			--},
 			{
 				inherit = "TRP3_ConfigCheck",
-				title = loc("KNP_CUSTOM_TITLES"),
+				title = loc.KNP_CUSTOM_TITLES,
 				configKey = TRPKN.CONFIG.SHOW_TITLES,
-				help = loc("KNP_CUSTOM_TITLES_TT");
+				help = loc.KNP_CUSTOM_TITLES_TT;
+				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION },
+			},
+			{
+				inherit = "TRP3_ConfigCheck",
+				title = loc.KNP_SHOW_OOC_INDICATOR,
+				configKey = TRPKN.CONFIG.SHOW_OOC_INDICATOR,
+				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION },
+			},
+			{
+				inherit = "TRP3_ConfigCheck",
+				title = loc.KNP_ACTIVELY_QUERY_FOR_PROFILE,
+				help = loc.KNP_ACTIVELY_QUERY_FOR_PROFILE_TT,
+				configKey = TRPKN.CONFIG.ACTIVE_QUERY,
 				dependentOnOptions = { TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION },
 			},
 		}

@@ -57,14 +57,16 @@ local function onModuleStart()
 	-- @param nameplate
 	--
 	function mod:UpdateRPName(nameplate)
-		
-		-- If we don't have a unit or this is the personal nameplate, we can stop here
-		if not nameplate.unit or nameplate.state.player then
-			return
+
+		-- TRP3_API.Ellyb.Tables.inspect(nameplate)
+		if not nameplate.unit -- If we don't have a unit
+			or nameplate.state.player --  or this is the personal nameplate
+			or not nameplate.state.friend -- or this is an enemy
+		then
+			return -- we can stop here
 		end;
 		
 		nameTextMod:Show(nameplate);
-		guildTextMod:Show(nameplate);
 		guildTextMod:Show(nameplate);
 		TRPKN.ShowKuiNameplate(nameplate);
 		
@@ -106,21 +108,20 @@ local function onModuleStart()
 	-- about a player.
 	-- It's not super efficient, but we will refresh all RP names on all nameplates for now
 	TRP3_API.events.listenToEvent(TRP3_API.events.REGISTER_DATA_UPDATED, TRPKN.refreshAllNameplates);
-	
-	TRPKN.initLocales();
+
+	C_Timer.After(2, TRPKN.refreshAllNameplates)
+
 	TRPKN.initCompanionNameplates();
 	TRPKN.initPlayerNameplates();
 	TRPKN.initConfig();
 end
 
 
-TRP3_API.module.registerModule(
-{
-	["name"]        = "Kui|cff9966ffNameplates|r module",
-	["description"] = "Add Total RP 3 customizations to Kui|cff9966ffNameplates|r.",
-	["version"]     = 1.3,
-	["id"]          = "trp3_kuinameplates",
-	["onStart"]     = onModuleStart,
-	["minVersion"]  = 31,
-}
-);
+TRP3_API.module.registerModule({
+	name = "Kui|cff9966ffNameplates|r module",
+	description = "Add Total RP 3 customizations to Kui|cff9966ffNameplates|r.",
+	version = 1.3,
+	id = "trp3_kuinameplates",
+	onStart = onModuleStart,
+	minVersion = 31,
+});

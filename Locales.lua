@@ -17,16 +17,12 @@
 ---    limitations under the License.
 ----------------------------------------------------------------------------------
 
-local TRPKN = select(2, ...);
-
 -- Imports
-local pairs = pairs;
-local getLocale = TRP3_API.locale.getLocale;
+local Localization = TRP3_API.loc;
 
-
-local TRP3_KUINAMEPLATES_LOCALE = {};
-
-TRP3_KUINAMEPLATES_LOCALE["enUS"] = {
+---@type TRP3_API This is to trick IntelliJ IDEA to get auto-completion for locale keys inside TRP3_API.loc
+local TRP3_API = {}
+TRP3_API.loc = {
 	KNP_MODULE = "Kui|cff9966ffNameplates|r module",
 	KNP_ENABLE_CUSTOMIZATION = "Enable nameplates customizations",
 	KNP_ONLY_IC = "Only when in character",
@@ -38,10 +34,23 @@ Note: If you have enabled the option ot only enable nameplate customisation when
 	KNP_INCREASE_CONTRAST = "Increase color contrast",
 	KNP_CUSTOM_TITLES = "Show custom titles",
 	KNP_CUSTOM_TITLES_TT = "Replace the guild text by the RP title of the player. Be aware that custom titles may be really long and take a lot of space.",
-	KNP_PET_NAMES = "Pet names"
+	KNP_PET_NAMES = "Pet names",
+	KNP_SHOW_OOC_INDICATOR = "Show OOC indicator",
+	KNP_ACTIVELY_QUERY_FOR_PROFILE = "Actively query players profiles",
+	KNP_ACTIVELY_QUERY_FOR_PROFILE_TT = [[When this option is enabled and the add-on sees a nameplate of a player without an RP profile, it will actively query this player for their profile, like if you had put your cursor over them.
+
+This means that RP names will appear automatically without the need to move your cursor over the players to request their profile.
+
+|cffff0000Caution: This option potentially uses more add-on bandwidth and may cause lags. If you have trouble with profiles loading slowly, try to disable this option.|r]],
 }
 
-TRP3_KUINAMEPLATES_LOCALE["frFR"] = {
+Localization:GetDefaultLocale():AddTexts(TRP3_API.loc)
+
+local localeContent = {}
+
+Localization:GetLocale("enUS"):AddTexts(localeContent);
+
+localeContent = {
 	KNP_MODULE = "Module pour Kui|cff9966ffNameplates|r",
 	KNP_ENABLE_CUSTOMIZATION = "Activer les modifications des barres d'infos",
 	KNP_ONLY_IC = "Seulement quand je suis \"Dans le personnage\"",
@@ -56,11 +65,4 @@ Note: Si vous avez activé l'option de modifier les barres d'infos uniquement lo
 	KNP_PET_NAMES = "Nom des familiers"
 }
 
-function TRPKN.initLocales()
-	for localeID, localeStructure in pairs(TRP3_KUINAMEPLATES_LOCALE) do
-		local locale = getLocale(localeID);
-		for localeKey, text in pairs(localeStructure) do
-			locale.localeContent[localeKey] = text;
-		end
-	end
-end
+Localization:GetLocale("frFR"):AddTexts(localeContent);
