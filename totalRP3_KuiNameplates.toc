@@ -1,6 +1,6 @@
-## Interface: 70200
+## Interface: 80000
 ## Author: Ellypse (@EllypseCelwe)
-## Version: 1.3
+## Version: @project-version@
 ## Title: Total RP 3: Kui |cff9966ffNameplates|r module
 ## Notes: Adds Total RP 3 customizations to Kui|cff9966ffNameplates|r.
 ## Dependencies: totalRP3, Kui_Nameplates_Core
