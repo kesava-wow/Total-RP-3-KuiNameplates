@@ -20,13 +20,13 @@
 local TRPKN = select(2, ...);
 
 function TRPKN.initPlayerNameplates()
-	
+
 	local getUnitID = TRP3_API.utils.str.getUnitID;
+	local unitIDToInfo = TRP3_API.utils.str.unitIDToInfo;
 	local unitIDIsKnown = TRP3_API.register.isUnitIDKnown;
 	local hasProfile = TRP3_API.register.hasProfile;
 	local colorHexaToFloats = TRP3_API.utils.color.hexaToFloat;
 	local getConfigValue = TRP3_API.configuration.getValue;
-	local getUnitFullName = TRP3_API.r.name;
 	local getUnitProfile = TRP3_API.register.profileExists;
 	local getCompleteName = TRP3_API.register.getCompleteName;
 	local crop = TRP3_API.utils.str.crop;
@@ -38,29 +38,34 @@ function TRPKN.initPlayerNameplates()
 	local CONFIG_PREFER_OOC_ICON = "tooltip_prefere_ooc_icon";
 
 	local MAX_TITLE_SIZE = 40;
-	
+
 	local function getPlayerData(playerUnitID)
 		if not unitIDIsKnown(playerUnitID) then return end
+
+		local unitName = unitIDToInfo(playerUnitID);
 		local profile = getUnitProfile(playerUnitID);
-		
+
+		-- Should be impossible but I don't really want to take that chance.
+		if not unitName then return end
+
 		local name, title, color, OOC;
-		
+
 		-- If we have more information (sometimes we don't have them yet) we continue
 		if profile and profile.characteristics then
-			name = getCompleteName(profile.characteristics, getUnitFullName(playerUnitID), false);
+			name = getCompleteName(profile.characteristics, unitName, false);
 			title = profile.characteristics.FT;
 			color = profile.characteristics.CH;
 			if profile.character then
 				OOC = profile.character.RP ~= 1 ;
 			end
 		end
-		
+
 		return name, title, color, OOC;
 	end
-	
+
 	function TRPKN.modifyPlayerNameplate(nameplate)
 		local unitID = getUnitID(nameplate.unit);
-		
+
 		-- If we didn't get a proper unit ID or we don't have any data for this unit ID we can stop here
 		if not unitID then
 			return
@@ -78,9 +83,9 @@ function TRPKN.initPlayerNameplates()
 			end
 			return false;
 		end
-		
+
 		local name, title, color, OOC = getPlayerData(unitID);
-		
+
 		if name then
 			if getConfigValue(TRPKN.CONFIG.SHOW_OOC_INDICATOR) and OOC then
 				name = " " .. name
@@ -94,7 +99,7 @@ function TRPKN.initPlayerNameplates()
 			nameplate.state.name = name;
 			nameplate.NameText:SetText(nameplate.state.name);
 		end
-		
+
 		if getConfigValue(TRPKN.CONFIG.SHOW_TITLES) then
 			if not nameplate.state.old_guild_text then
 				nameplate.state.old_guild_text = nameplate.state.guild_text;
@@ -106,11 +111,11 @@ function TRPKN.initPlayerNameplates()
 			end
 			nameplate.GuildText:SetText(nameplate.state.guild_text)
 		end
-		
+
 		if getConfigValue(TRPKN.CONFIG.HIDE_NON_ROLEPLAY) then
 			TRPKN.ShowKuiNameplate(nameplate);
 		end
-		
+
 		if color and getConfigValue(TRPKN.CONFIG.USE_CUSTOM_COLOR) then
 			local r, g, b = colorHexaToFloats(color);
 			nameplate.NameText:SetTextColor(r, g, b)
