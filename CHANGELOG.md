@@ -1,8 +1,19 @@
-# Total RP 3: KuiNameplates, version 1.3.0
+# Changelog for version 1.4.0
 
-Fixed a lot of issues. I basically rewrote this module entirely to be more robust and behave better with KuiNameplates.
+## Added
 
-- The issue where guild names would disappear has been fixed in the process (note that if you have the player title option enable it replaces guild text).
-- Long titles are now limited to 40 characters.
+- Added option to actively query unknown players for their profile information. This option  is enabled by default, and means that people's profiles will be download as you are wandering, and their RP name will now automatically appear above their head, without the need to place your cursor over them.
+- Added option to show OOC indicator in front of the player names (enabled by default)
 
-This version requires version 1.2.9 for Total RP 3.
+
+## Fixed
+
+- Fixed some issues with names being displayed on wrong nameplates
+- Fixed an issue with nameplates resetting to an incorrect state.
+- Updated for patch 8.0.1.
+
+## Modified
+
+- Migrated locales management to new system in Total RP 3.
+
+This version requires Total RP 3 version 1.4.3.
