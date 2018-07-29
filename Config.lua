@@ -46,7 +46,7 @@ function TRPKN.initConfig()
 	registerConfigKey(TRPKN.CONFIG.PET_NAMES, true);
 	registerConfigKey(TRPKN.CONFIG.SHOW_TITLES, false);
 	registerConfigKey(TRPKN.CONFIG.SHOW_OOC_INDICATOR, true);
-	registerConfigKey(TRPKN.CONFIG.ACTIVE_QUERY, false);
+	registerConfigKey(TRPKN.CONFIG.ACTIVE_QUERY, true);
 	
 	registerHandler(TRPKN.CONFIG.ENABLE_NAMEPLATES_CUSTOMIZATION, TRPKN.refreshAllNameplates);
 	registerHandler(TRPKN.CONFIG.DISPLAY_NAMEPLATES_ONLY_IN_CHARACTER, TRPKN.refreshAllNameplates);
