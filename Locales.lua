@@ -62,7 +62,15 @@ Note: Si vous avez activé l'option de modifier les barres d'infos uniquement lo
 	KNP_INCREASE_CONTRAST = "Améliorer le contraste des couleurs",
 	KNP_CUSTOM_TITLES = "Afficher les titres personnalisés",
 	KNP_CUSTOM_TITLES_TT = [[Remplace la ligne du texte de guilde par le titre RP du joueur. Attention, certains titres peuvent être très long et prendre beaucoup de place]],
-	KNP_PET_NAMES = "Nom des familiers"
+	KNP_PET_NAMES = "Nom des familiers",
+	KNP_SHOW_OOC_INDICATOR = "Afficher l'indicateur HRP",
+    KNP_ACTIVELY_QUERY_FOR_PROFILE = "Récupérer les profils automatiquement",
+    KNP_ACTIVELY_QUERY_FOR_PROFILE_TT = [[Quand cette option est activée et que l'add-on rencontre la barre d'un joueur sans profil, une requête sera automatiquement envoyée pour récupérer les informations sur ce joueurs, comme si vous aviez passé votre souris sur lui.
+
+Cela signifie que les nom RP apparaîtront automatiquement, sans avoir besoin de passer votre curseur sur les personnages.
+
+|cffff0000Attention: Cette option peut potentiellement utiliser beaucoup de bande passante dédidée aux add-ons. Si vous rencontrez des soucis de lag ou de profils qui chargent lentement, essayez de désactiver cette option.|r]],
+
 }
 
 Localization:GetLocale("frFR"):AddTexts(localeContent);
