@@ -1,3 +1,10 @@
+# Changelog for version 1.4.1
+
+## Fixed
+
+- Fixed an issue introduced by changes in recent versions of Kui Nameplates that would prevent this module from properly customizing nameplates.
+- Implemented a workaround for the issue where Total RP 3's customizations are not applied when the option to show player title in Kui Nameplates is enabled.
+
 # Changelog for version 1.4.0
 
 ## Added

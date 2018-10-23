@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------
---- Total RP 3: KuiNameplates
+--- Total RP 3: Kui Nameplates
 --- Locales
 ---    ---------------------------------------------------------------------------
 ---    Copyright 2017 Renaud "Ellypse" Parize <ellypse@totalrp3.info> @EllypseCelwe
@@ -23,7 +23,7 @@ local Localization = TRP3_API.loc;
 ---@type TRP3_API This is to trick IntelliJ IDEA to get auto-completion for locale keys inside TRP3_API.loc
 local TRP3_API = {}
 TRP3_API.loc = {
-	KNP_MODULE = "Kui|cff9966ffNameplates|r module",
+	KNP_MODULE = "Kui |cff9966ffNameplates|r module",
 	KNP_ENABLE_CUSTOMIZATION = "Enable nameplates customizations",
 	KNP_ONLY_IC = "Only when in character",
 	KNP_HIDE_NON_RP = "Hide non-roleplay nameplates",
@@ -51,7 +51,7 @@ local localeContent = {}
 Localization:GetLocale("enUS"):AddTexts(localeContent);
 
 localeContent = {
-	KNP_MODULE = "Module pour Kui|cff9966ffNameplates|r",
+	KNP_MODULE = "Module pour Kui |cff9966ffNameplates|r",
 	KNP_ENABLE_CUSTOMIZATION = "Activer les modifications des barres d'infos",
 	KNP_ONLY_IC = "Seulement quand je suis \"Dans le personnage\"",
 	KNP_HIDE_NON_RP = "Cacher les noms des joueurs non RP",
