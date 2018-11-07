@@ -42,6 +42,7 @@ Note: If you have enabled the option ot only enable nameplate customisation when
 This means that RP names will appear automatically without the need to move your cursor over the players to request their profile.
 
 |cffff0000Caution: This option potentially uses more add-on bandwidth and may cause lags. If you have trouble with profiles loading slowly, try to disable this option.|r]],
+	KNP_TITLES_WARNING = "Disabled display of player's titles in Kui Nameplates' settings as it conflicts with this module's customization."
 }
 
 Localization:GetDefaultLocale():AddTexts(TRP3_API.loc)
@@ -70,6 +71,7 @@ Note: Si vous avez activé l'option de modifier les barres d'infos uniquement lo
 Cela signifie que les nom RP apparaîtront automatiquement, sans avoir besoin de passer votre curseur sur les personnages.
 
 |cffff0000Attention: Cette option peut potentiellement utiliser beaucoup de bande passante dédidée aux add-ons. Si vous rencontrez des soucis de lag ou de profils qui chargent lentement, essayez de désactiver cette option.|r]],
+	KNP_TITLES_WARNING = "L'affichage des titres des joueurs dans Kui Nameplates a été désactivé car il entre en conflit avec des fonctionnalités de ce module. "
 
 }
 

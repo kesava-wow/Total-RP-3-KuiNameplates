@@ -25,6 +25,7 @@ local function onModuleStart()
 	local mod = addon:NewPlugin('Total RP 3: KuiNameplates', 200);
 	local nameTextMod = addon:GetPlugin("NameText");
 	local guildTextMod = addon:GetPlugin("GuildText");
+	local loc = TRP3_API.loc;
 
 
 	local getConfigValue = TRP3_API.configuration.getValue;
@@ -81,6 +82,7 @@ local function onModuleStart()
 			local kuiNameplatesCurrentConfigProfile = KuiNameplatesCore.config:GetActiveProfile();
 			if type(kuiNameplatesCurrentConfigProfile) == "table" then
 				if kuiNameplatesCurrentConfigProfile["title_text_players"] == true then
+					TRP3_API.utils.message.displayMessage(loc.KNP_MODULE .. ": " .. loc.KNP_TITLES_WARNING)
 					kuiNameplatesCurrentConfigProfile["title_text_players"] = false;
 					KuiNameplatesCore:SetLocals();
 				end
