@@ -77,7 +77,15 @@ local function onModuleStart()
 
 		-- TRP3's customizations are overridden when Kui Nameplates' option to show player title is enabled, so we will disable it manually.
 		-- I don't like that either, but the complexity of getting all of this to work is too much for me right now, I'll go back on this later.
-		KuiNameplatesCore.config:SetKey("title_text_players", false);
+		if KuiNameplatesCore.config and type(KuiNameplatesCore.config.GetActiveProfile) == "function" then
+			local kuiNameplatesCurrentConfigProfile = KuiNameplatesCore.config:GetActiveProfile();
+			if type(kuiNameplatesCurrentConfigProfile) == "table" then
+				if kuiNameplatesCurrentConfigProfile["title_text_players"] == true then
+					kuiNameplatesCurrentConfigProfile["title_text_players"] = false;
+					KuiNameplatesCore:SetLocals();
+				end
+			end
+		end
 
 		if getConfigValue(TRPKN.CONFIG.HIDE_NON_ROLEPLAY) and UnitIsPlayer(nameplate.unit) or UnitIsOtherPlayersPet(nameplate.unit) then
 			TRPKN.HideKuiNameplate(nameplate);
