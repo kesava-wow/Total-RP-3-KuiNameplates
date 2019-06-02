@@ -38,18 +38,17 @@ local function onModuleStart()
 	---@param nameplate Frame
 	function TRPKN.HideKuiNameplate(nameplate)
 		nameplate.state.no_name = true
-		nameplate.IN_NAMEONLY = false
-		nameplate:UpdateNameText();
-		nameplate:UpdateGuildText()
+		nameplate:UpdateNameText()
+		nameplate:UpdateLevelText()
+		nameplate:UpdateFrameSize()
+		nameplate.NameText:Hide()
+		nameplate.GuildText:Hide()
 	end
 
 	---ShowKuiNameplate
 	---@param nameplate Frame
 	function TRPKN.ShowKuiNameplate(nameplate)
-		nameplate.state.no_name = false
-		nameplate.IN_NAMEONLY = true
-		nameplate:UpdateNameText();
-		nameplate:UpdateGuildText();
+		addon.layout:Show(nameplate)
 	end
 
 
